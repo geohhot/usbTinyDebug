@@ -50,6 +50,16 @@ int main (void) {
   char ret[4];
   
   libusb_control_transfer (usbtinyisp, //*dev_handle
+			   0b01000000,       //bmRequestType
+			   USBTINY_POWERUP, //bRequest
+			   SCK_PERIOD, // wValue
+			   0, // reset LOW  //wIndex
+			   ret, // *data
+			   0, // wLength
+			   USB_TIMEOUT); // timeout
+
+  usleep (2000L);
+  libusb_control_transfer (usbtinyisp, //*dev_handle
   			   0b11000000,       //bmRequestType
   			   USBTINY_SPI, //bRequest
   			   0, // wValue
@@ -58,14 +68,7 @@ int main (void) {
   			   4, // wLength
   			   USB_TIMEOUT);  // timeout
 
-  libusb_control_transfer (usbtinyisp, //*dev_handle
-			   0b01000000,       //bmRequestType
-			   USBTINY_POWERUP, //bRequest
-			   SCK_PERIOD, // wValue
-			   0, // reset LOW  //wIndex
-			   ret, // *data
-			   0, // wLength
-			   USB_TIMEOUT); // timeout
+
   usleep (200000L);
   libusb_control_transfer (usbtinyisp, //*dev_handle
 			   0b01000000,       //bmRequestType

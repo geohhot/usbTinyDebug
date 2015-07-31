@@ -6,5 +6,8 @@ LIBS_PATH=../libs/
 all:
 	gcc -o $(PRG) -I$(LIBS_PATH) $(PRG).c $(LIBUSB) 
 
+stuff: all
+	./$(PRG)
+
 clean:
 	rm *~ *.o -rf
